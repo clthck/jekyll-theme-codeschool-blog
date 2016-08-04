@@ -1,0 +1,23 @@
+{% assign post = include.post %}
+<div class="g-b g-b--m--1of2 collection-item">
+  <article class="article mbm">
+    <header class="article-header">
+      {% assign banner_feature_image_url = post.banner_feature_image %}
+      {% assign protocol = banner_feature_image_url | slice: 0, 7 %}
+      {% if protocol != 'http://' and protocol != 'https:/' %}
+        {% capture banner_feature_image_url %}{{site.baseurl}}/{{site.images_dir}}{{post.banner_feature_image}}{% endcapture %}
+      {% endif %}
+      <a class="article-cover" title="{{ post.title | escape }}" style="background-color: transparent; background-image: url({{banner_feature_image_url}}); background-size: contain;" href="{{ post.url | prepend: site.baseurl }}">
+        <b class="srt">{{ post.title | escape }}</b>
+      </a>
+      <time class="article-time">{{ post.date | date: "%B %-d, %Y" }}</time>
+      <a class="article-title-link" title="{{ post.title | escape }}" href="{{ post.url | prepend: site.baseurl }}">
+        <h1 class="article-title">{{ post.title | escape }}</h1>
+      </a>
+      <p class="mbf tsl">
+        <em class="tcs">in <a class="bdrb tcs" href="{{ site.baseurl }}/{{ post.category | slugify }}/">{{ post.category }}</a></em>
+      </p>
+    </header>
+    {{ post.excerpt | strip_html | strip_newlines }}
+  </article>
+</div>

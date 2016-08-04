@@ -1,0 +1,87 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing these this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Where things are
+source:       .
+destination:  ./public
+plugins_dir:  _plugins
+layouts_dir:  _layouts
+data_dir:     _data
+includes_dir: _includes
+collections:
+  posts:
+    output:   true
+
+# Handling Reading
+safe:         false
+include:      [".htaccess"]
+exclude:      []
+keep_files:   [".git", ".svn"]
+encoding:     "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Filtering Content
+show_drafts: null
+limit_posts: 0
+future:      false
+unpublished: false
+
+# Plugins
+whitelist: []
+gems:      [jekyll-paginate, jekyll-lunr-js-search]
+
+# Conversion
+markdown:    kramdown
+excerpt_separator: "\n"
+incremental: false
+
+# Serving
+detach:  false
+port:    4000
+host:    localhost
+baseurl: "" # does not include hostname
+show_dir_listing: false
+
+# Outputting
+permalink:     date
+paginate:      8
+paginate_path: /archive/page/:num
+timezone: America/New_York
+
+# Front Matter defaults
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Swart Skilpad"
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: "Jekyll Theme: Code School Blog"
+email: dark.turtle@protonmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  Supplement your learning by reading posts on educational strategy, technical tips, course previews, and all the haps at Code School.
+url: "http://localhost:4000" # the base hostname & protocol for your site
+github_username:  clthck
+twitter_username: codeschool
+facebook_username: CodeSchool
+instagram_username: codeschool
+googleplus_username: +Codeschool
+images_dir: images/
+suggested_posts_count: 2
+
+# Build settings
+# theme: minima

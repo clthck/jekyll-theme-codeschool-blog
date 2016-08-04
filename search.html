@@ -1,0 +1,59 @@
+---
+layout: default
+---
+
+<div class="row">
+  <div class="cell well well--l">
+    <p>
+      <em class="tcs">Search results for:</em> <strong class="js-search-results-query"></strong>
+      <input type="hidden" id="search-query-hidden" value="">
+    </p>
+    <section class="pbm ptm">
+      <ul class="list dividedList js-search-results-container">
+      </ul>
+
+      {% raw %}
+      <script id="search-results-template-large" type="text/mustache">
+        {{#entries}}
+          {{#title}}
+          <li class="list-item dividedList-item">
+            <h2 class="h4">
+              <a href="{{url}}">{{title}}</a>
+            </h2>
+          </li>
+          {{/title}}
+        {{/entries}}
+      </script>
+      {% endraw %}
+
+    </section>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var querystring = location.href.substr([location.protocol, '//', location.host, location.pathname].join('').length).replace(/^\?/, ''),
+        qs_parts = querystring.split('&'),
+        temp,
+        params = {};
+    for (var i = 0, n = qs_parts.length; i < n; i ++) {
+      temp = qs_parts[i].split('=');
+      params[temp[0]] = temp[1];
+    }
+
+    if (params.q) {
+      $('.js-search-results-query').text(["'", params.q, "'"].join(''));
+      $('#search-query-hidden').val(params.q).lunrSearch({
+        indexUrl: '/js/index.json',
+        results:  '.js-search-results-container',
+        template: '#search-results-template-large',
+        titleMsg: '',
+        emptyMsg: '',
+        callback: function() {
+          $('#search-query').val('');
+          $('#search-results').hide();
+        }
+      });
+    }
+  });
+</script>

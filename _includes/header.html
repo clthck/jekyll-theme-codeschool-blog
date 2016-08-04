@@ -1,0 +1,45 @@
+{% include svg_symbols.html %}
+
+<header class="header row site-item">
+  <div class="cell">
+    <div class="header-group">
+      <div class="brand header-col header-col--left">
+        <a class="brand-link" href="/{{ site.baseurl }}"><img alt="Code School" class="brand-img" width="150" src="{{site.baseurl}}/images/logo.png"></a>
+      </div>
+      <div class="header-col header-col--right">
+        <div class="header-set">
+          <form action="{{site.baseurl}}/search.html" class="search header-search header-set-item js-search" method="get" role="search">
+            <input autocomplete="off" class="search-input js-search-input" name="q" placeholder="Search..." title="Search for:" type="search" value="" id="search-query">
+            <div class="search-results js-search-results" id="search-results"></div>
+          </form>
+
+          {% raw %}
+          <script id="search-results-template" type="text/mustache">
+          {{#entries}}
+            {{#title}}
+            <a class="search-results-link" href="{{url}}">{{title}}</a>
+            {{/title}}
+          {{/entries}}
+          </script>
+          {% endraw %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% capture posts_count_limit %}{{site.paginate | plus: 1}}{% endcapture %}
+
+<script type="text/javascript">
+  $(function() {
+    $('#search-query').lunrSearch({
+      indexUrl: '/js/index.json',
+      results:  '#search-results',
+      template: '#search-results-template',
+      titleMsg: '',
+      emptyMsg: '',
+      limit: {{posts_count_limit}},
+    });
+  });
+</script>

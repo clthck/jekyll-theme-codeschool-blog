@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<div class="row hero tac tal--m">
+  <div class="cell well well--xl mbf">
+    {% assign latest_post = site.posts.first %}
+    <article class="article">
+      <div class="g g--flag g--l">
+        <div class="g-b g-b--m--1of2">
+          {% assign banner_feature_image_url = latest_post.banner_feature_image %}
+          {% assign protocol = banner_feature_image_url | slice: 0, 7 %}
+          {% if protocol != 'http://' and protocol != 'https:/' %}
+            {% capture banner_feature_image_url %}{{site.baseurl}}/{{site.images_dir}}{{latest_post.banner_feature_image}}{% endcapture %}
+          {% endif %}
+          <a class="article-cover article-cover--hero" title="{{ latest_post.title | escape }}" style="background-color: transparent; background-image: url({{banner_feature_image_url}}); background-size: contain;" href="{{ latest_post.url | prepend: site.baseurl }}">
+            <b class="srt">{{ latest_post.title | escape }}</b>
+          </a>
+        </div>
+        <div class="g-b g-b--m--1of2">
+          <header class="article-header">
+            <time class="article-time">{{ latest_post.date | date: "%B %-d, %Y" }}</time>
+            <a class="article-title-link" title="{{ latest_post.title | escape }}" href="{{ latest_post.url | prepend: site.baseurl }}">
+              <h1 class="article-title">{{ latest_post.title | escape }}</h1>
+            </a>
+            <p class="mbf tsl">
+              <em class="tcs">in <a class="bdrb tcs" href="{{ site.baseurl }}/{{ latest_post.category | slugify }}/">{{ latest_post.category }}</a></em>
+            </p>
+          </header>
+          {{ latest_post.excerpt | strip_html | strip_newlines }}
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div class="row">
+  <div class="cell well well--xl">
+    <h2 class="h3 bdrt mbl ptm ttu">Latest Posts</h2>
+    <section>
+      <div class="g g--l collection collection--l collection--m--1of2">
+        {% capture posts_count_limit %}{{site.paginate | plus: 1}}{% endcapture %}
+        {% for post in site.posts limit:posts_count_limit %}
+          {% if post != latest_post %}
+          {% include post_preview.html post=post %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="tac">
+        <a class="btn list-item-link" href="{{ site.baseurl }}/archive">View All Posts</a>
+      </div>
+    </section>
+  </div>
+</div>

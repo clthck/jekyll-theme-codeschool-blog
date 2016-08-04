@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+{% if page.banner_image %}
+  {% assign banner_image_url = page.banner_image %}
+  {% assign protocol = banner_image_url | slice: 0, 7 %}
+  {% if protocol != 'http://' and protocol != 'https:/' %}
+    {% capture banner_image_url %}{{site.baseurl}}/{{site.images_dir}}{{page.banner_image}}{% endcapture %}
+  {% endif %}
+  <div class="hero hero--post hero--post--custom hero--post--m row" style="background: transparent url({{banner_image_url}}) no-repeat center; background-size: contain;">
+    <div class="cell cell--s well well--l"></div>
+  </div>
+{% endif %}
+
+<div class="row">
+  <div class="cell cell--s well well--l">
+    <article class="article mbl mbxl--m">
+      <header class="article-header pbm--m">
+        <time class="article-time">{{ page.date | date: "%B %-d, %Y" }}</time>
+        <h1 class="article-title tsh1">{{ page.title | escape }}</h1>
+        <p class="mbf tsl">
+          <em class="tcs"> in <a class="bdrb tcs" href="{{ site.baseurl }}/{{ page.category | slugify }}/">{{ page.category }}</a></em>
+        </p>
+      </header>
+      <div class="article-content mbl mbxl--m">
+        {{ page.content }}
+      </div>
+      <div class="bdrb pbm ptm"></div>
+    </article>
+
+    {% if jekyll.environment == "production" %}
+      {% include post_share.html post=page %}
+    {% endif %}
+
+    <ul class="list list--object mbm mtm">
+      {% for tag in page.tags %}
+        <li class="list-item"><a class="tag" href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{{tag}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% include post_suggested_posts.html post=page %}

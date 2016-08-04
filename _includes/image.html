@@ -1,0 +1,7 @@
+<p class="article-img">
+  {% if include.image %}
+  <img alt="{{include.alt}}" src="{{ include.image | prepend: site.images_dir | prepend: site.baseurl | prepend: '/' }}">
+  {% else if include.src %}
+  <img alt="{{include.alt}}" src="{{include.src}}">
+  {% endif %}
+</p>

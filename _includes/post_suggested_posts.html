@@ -1,0 +1,48 @@
+{% assign current_post = include.post %}
+
+{% if current_post.category %}
+  {% assign suggested_posts = "" | split: "|" %}
+  {% assign posts = site.categories[current_post.category] %}
+  {% assign post_url = current_post.url %}
+  {% for i in (1..site.suggested_posts_count) %}
+    {% for post in posts %}
+      {% if post.url == post_url %}
+        {% assign prev_post_index = forloop.index %}
+      {% endif %}
+    {% endfor %}
+    {% for post in posts %}
+      {% if prev_post_index == forloop.index0 %}
+        {% assign suggested_posts = suggested_posts | push: post %}
+        {% assign post_url = post.url %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  {% if suggested_posts.size > 0 %}
+  <div class="row row--b">
+    <div class="cell cell--s well well--l">
+      <div class="bdrb mbl pbm">
+        <h4 class="label">Might We Suggest</h4>
+        <div class="g g--l collection collection--l collection--m--1of2">
+          {% for post in suggested_posts %}
+            <div class="g-b g-b--m--1of2 collection-item">
+              <article class="article mbm">
+                <header class="article-header">
+                  <a class="article-title-link" title="{{ post.title | escape }}" href="{{ post.url | prepend: site.baseurl }}">
+                    <h1 class="article-title">{{ post.title | escape }}</h1>
+                  </a>
+                  <p class="mbf tsl">
+                    <em class="tcs"> in <a class="bdrb tcs" href="{{ site.baseurl }}/{{ post.category | slugify }}/">{{ post.category }}</a></em>
+                  </p>
+                </header>
+                {{ post.excerpt | strip_html | strip_newlines }}
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+{% endif %}

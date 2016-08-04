@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<div class="row">
+  <div class="cell well well--l">
+    <div class="breadcrumb">
+      <span class="breadcrumb-item"><a href="{{site.baseurl}}/">Blog Home &gt; </a>All Posts </span>
+    </div>
+    <section class="pbm ptm">
+      <div class="g g--l collection collection--l collection--m--1of2">
+        {% for post in paginator.posts %}
+          {% include post_preview.html post=post %}
+        {% endfor %}
+      </div>
+      <div class="tac has-btn">
+        {% if paginator.previous_page_path %}<a class="btn" href="{{paginator.previous_page_path}}">Newer Entries</a>{% endif %}
+        {% if paginator.next_page_path %}<a class="btn" href="{{paginator.next_page_path}}">Older Entries</a>{% endif %}
+      </div>
+    </section>
+  </div>
+</div>

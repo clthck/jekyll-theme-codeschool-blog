@@ -1,0 +1,47 @@
+{% assign post = include.post %}
+{% assign post_title = post.title | uri_escape %}
+{% capture post_url %}{{site.url}}{{site.baseurl}}{{post.url}}{% endcapture %}
+{% assign post_url_encoded = post_url | cgi_escape %}
+
+<div class="mbl tac">
+  <p class="label mbs">Share This Post</p>
+
+  <ul class="list iconList iconList--l">
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link js-share" data-share-text="{{post.title | escape}}" data-share-service="twitter" target="_blank" href="http://twitter.com/share?text={{post_title}}&amp;url={{post_url_encoded}}&amp;via={{site.twitter_username}}&amp;related={{site.twitter_username}}">
+        <span class="srt">Twitter</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-twitter"></use> </svg>
+      </a>
+    </li>
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link js-share" data-share-service="facebook" target="_blank" href="http://www.facebook.com/sharer.php?u={{post_url_encoded}}&amp;p[title]={{post_title}}">
+        <span class="srt">Facebook</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-facebook"></use> </svg>
+      </a>
+    </li>
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link js-share" data-share-service="google" target="_blank" href="https://plus.google.com/share?url={{post_url}}">
+        <span class="srt">Google-plus</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-google-plus"></use> </svg>
+      </a>
+    </li>
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link js-share" data-share-service="reddit" target="_blank" href="http://www.reddit.com/submit?url={{post_url}}&amp;title={{post_title}}">
+        <span class="srt">Reddit</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-reddit"></use> </svg>
+      </a>
+    </li>
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link js-share" data-share-service="linkedin" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{post_url}}&amp;title={{post_title}}">
+        <span class="srt">Linkedin</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-linkedin"></use> </svg>
+      </a>
+    </li>
+    <li class="iconList-item">
+      <a class="list-item-link iconList-item-link" href="mailto:?subject={{site.title}}: {{post.title | escape}}&amp;body={{post_url}}">
+        <span class="srt">Mail</span>
+        <svg class="icon " height="32" width="32"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mail"></use> </svg>
+      </a>
+    </li>
+  </ul>
+</div>
